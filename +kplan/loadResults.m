@@ -26,7 +26,7 @@ function [data, gridSpacing] = loadResults(subjectID, planID, sonicationNumber, 
 % INPUTS:
 %     subjectID         - Subject ID from k-Plan.
 %     planID            - Plan ID from k-Plan.
-%     sonicationNum     - Sonication number from k-Plan.
+%     sonicationNumber  - Sonication number from k-Plan.
 %     datasetName       - Dataset name, specified as a member of the
 %                         kplan.SimulatedDatasets enum class.
 %

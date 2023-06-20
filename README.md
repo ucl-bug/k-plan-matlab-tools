@@ -10,11 +10,13 @@ MATLAB toolbox for working with the input and output files used by the k-Plan tr
 
 Download and add the root folder of this toolbox to the MATLAB path. The tools must be used on the same computer on which k-Plan is installed.
 
-## Loading a simulated dataset
+## Subject and Plan IDs
 
-The simulated pressure and temperature fields can be loaded into MATLAB using the subject and plan IDs, and the sonication number from k-Plan. The subject and plan IDs are shown in the "Add Images" tab next to "k-Dispatch ID". The first number is the `subjectID`, and the second number is the `planID`. The sonication number is the number shown on the left hand side of the sonication table in the "Planning" tab.
+Datasets from the k-Plan results file can be loaded into MATLAB using the subject and plan IDs, and the sonication number from k-Plan. The subject and plan IDs are shown in the "Add Images" tab next to "k-Dispatch ID". The first number is the `subjectID`, and the second number is the `planID`. The sonication number is the number shown on the left hand side of the sonication table in the "Planning" tab.
 
-The syntax is:
+## Load a simulated dataset
+
+The simulated pressure and temperature fields can be loaded using:
 
 ```matlab
 [data, gridSpacing] = kplan.loadResults(subjectID, planID, sonicationNum, datasetName);
@@ -31,6 +33,16 @@ For further details type:
 ```matlab
 help kplan.loadResults
 ```
+
+## Load element amplitudes and phases
+
+The driving amplitude and phase for the transducer used for the forward planning simulation can be loaded using:
+
+```matlab
+[amp, phase] = kplan.loadElementAmpPhase(subjectID, planID, sonicationNumber)
+```
+
+
 
 
 
