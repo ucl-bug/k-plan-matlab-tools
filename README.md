@@ -2,7 +2,7 @@
 
 ## Overview
 
-MATLAB toolbox for working with the k-Plan treatment planning software.
+MATLAB toolbox for working with the k-Plan treatment planning software. This toolbox assumes familiarity with the k-Plan software and terminology.
 
 :warning: *This repository is still under development. Breaking changes may occur!*
 
