@@ -28,6 +28,12 @@ For example, to load the pressure from subject 1, plan 2, sonication 3, call:
 [data, gridSpacing] = kplan.loadResults(1, 2, 3, kplan.SimulatedDatasets.PressureAmplitude);
 ```
 
+To load the position of the simulation domain in k-Plan world coordinates, call:
+
+```matlab
+gridSettings = kplan.loadGridSettings(subjectID, planID)
+```
+
 For further details type:
 
 ```matlab
