@@ -33,6 +33,8 @@ function gridSettings = loadGridSettings(subjectID, planID)
 %                       - Number of spatial grid points per wavelength used
 %                         for the simulation assuming a reference sound
 %                         speed of 1540 m/s.
+%     .numberSonications
+%                       - Number of sonication results stored in the file.
 
 % Copyright (C) 2023- University College London (Bradley Treeby).
 
@@ -48,6 +50,7 @@ filePath = getResultsFilePath(subjectID, planID);
 try
     gridSettings.domainPosition = h5read(filePath, '/settings/grid/domain_position');
     gridSettings.pointsPerWavelength = h5read(filePath, '/settings/grid/points_per_wavelength');
+    gridSettings.numberSonications = h5readatt(filePath, '/sonications', 'number_sonications');
 catch
     error('Specified dataset not found in results file.');
 end
