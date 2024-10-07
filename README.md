@@ -48,7 +48,11 @@ The driving amplitude and phase for the transducer used for the forward planning
 [amp, phase] = kplan.loadElementAmpPhase(subjectID, planID, sonicationNumber)
 ```
 
+## Sum sonications
 
+The simulated pressure field from all sonications in a treatment plan can be summed (if simulating a cross-beam approach, for example), and then saved as a new .h5 image dataset which can be loaded into k-Plan using:
 
-
-
+```matlab
+outputFilename = 'combined_sonications.h5'
+kplan.sumSonications(subjectID, planID, outputFilename)
+```
