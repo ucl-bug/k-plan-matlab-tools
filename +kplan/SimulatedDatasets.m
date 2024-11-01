@@ -10,12 +10,13 @@
 %     datasetName = kplan.SimulatedDatasets.PressurePhase;
 %     datasetName = kplan.SimulatedDatasets.Temperature;
 %     datasetName = kplan.SimulatedDatasets.ThermalDose;
+%     datasetName = kplan.SimulatedDatasets.ThermalDoseSptp;
 
 % Copyright (C) 2023- University College London (Bradley Treeby).
 
 classdef SimulatedDatasets
     enumeration
-        PressureAmplitude, PressurePhase, Temperature, ThermalDose
+        PressureAmplitude, PressurePhase, Temperature, ThermalDose, ThermalDoseSptp
     end
     methods
         function datasetName = getDatasetH5Path(obj, sonicationNum)
@@ -30,6 +31,8 @@ classdef SimulatedDatasets
                     datasetName = [datasetName 'temperature_maximum'];
                 case SimulatedDatasets.ThermalDose
                     datasetName = [datasetName 'thermal_dose'];
+                case SimulatedDatasets.ThermalDoseSptp
+                    datasetName = [datasetName 'thermal_dose_sptp'];
             end
         end
     end
