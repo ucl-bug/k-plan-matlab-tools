@@ -59,10 +59,20 @@ end
 % Load dataset.
 data = h5read(filePath, datasetPath);
 
-% Apply scaling.
-scaleSlope = h5readatt(filePath, datasetPath, 'scale_slope');
-scaleIntercept = h5readatt(filePath, datasetPath, 'scale_intercept');
-data = single(data) * scaleSlope + scaleIntercept;
+% Apply scaling if the attributes are present.
+try
+    scaleSlope = h5readatt(filePath, datasetPath, 'scale_slope');
+    scaleIntercept = h5readatt(filePath, datasetPath, 'scale_intercept');
+    data = single(data) * scaleSlope + scaleIntercept;
+catch
+    disp('No scaling applied.')
+end
 
 % Read dimensions.
-gridSpacing = h5readatt(filePath, datasetPath, 'grid_spacing');
+if nargout == 2
+    try
+        gridSpacing = h5readatt(filePath, datasetPath, 'grid_spacing');
+    catch
+        error('Specified dataset does not contain the grid spacing attribute.');
+    end
+end
