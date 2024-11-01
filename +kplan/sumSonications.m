@@ -20,11 +20,18 @@ function sumSonications(subjectID, planID, outputFilename)
 gridSettings = kplan.loadGridSettings(subjectID, planID);
 
 % Load and sum results
-combinedSonications = 0;
+combinedSonications = 0 ;
 for sonicationIndex = 1:gridSettings.numberSonications
-    [pressureField, gridSpacing] = kplan.loadResults(subjectID, planID, sonicationIndex, kplan.SimulatedDatasets.PressureAmplitude);
-    combinedSonications = combinedSonications + pressureField;
+    [amplitude, gridSpacing] = kplan.loadResults(subjectID, planID, sonicationIndex, kplan.SimulatedDatasets.PressureAmplitude);
+    try
+        phase = kplan.loadResults(subjectID, planID, sonicationIndex, kplan.SimulatedDatasets.PressurePhase);
+    catch ME
+        warning('Phase data must be saved to sum sonications. This can be selected in the settings tab of k-Plan.')
+        rethrow(ME)
+    end
+    combinedSonications = combinedSonications + amplitude .* exp(1i .* phase);
 end
+combinedSonications = abs(combinedSonications);
 
 % Write to a new image file
 kplan.savePlanningImageH5(outputFilename, combinedSonications, gridSpacing, 'Summed Image', gridSettings.domainPosition);
