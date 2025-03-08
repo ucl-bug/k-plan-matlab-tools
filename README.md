@@ -63,7 +63,7 @@ By default, k-Plan maps the materials properties used in the simulation from a C
 
 This file can be generated using `kplan.saveMaterialLabelledMatrix` and then loaded into k-Plan. The loaded image must be selected as the primary planning image. Nearest neighbour interpolation is used to re-sample the image to the simulation resolution, so the labelled matrix should have sufficient resolution to avoid stair-casing artefacts (typically > 6 PPW).
 
-The example below shows how to create a labelled matrix with a skull slab assigned the properties of cortical bone, matching the [modelling intercomparison benchmark 3](https://doi.org/10.1121/10.0013426).
+The example below shows how to create a labelled matrix with a skull slab assigned the properties of cortical bone, matching the [modelling intercomparison benchmark 3](https://doi.org/10.1121/10.0013426). Note, `sound_speed_compression_ref` should match the `Reference sound speed` selected under `Advanced Settings` in the `Settings` tab within k-Plan.
 
 ```matlab
 % define image structure at 6 PPW
