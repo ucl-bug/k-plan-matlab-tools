@@ -56,3 +56,52 @@ The simulated pressure field from all sonications in a treatment plan can be sum
 outputFilename = 'combined_sonications.h5'
 kplan.sumSonications(subjectID, planID, outputFilename)
 ```
+
+## Labelled matrix material properties
+
+By default, k-Plan maps the materials properties used in the simulation from a CT or pseudo-CT image of the head. k-Plan also allows the material properties used in the simulation to be specified directly using a labelled matrix. This format uses a single 3D matrix where each grid point is given an integer label, and then a set of look-up tables which specify the material properties for each label.
+
+This file can be generated using `kplan.saveMaterialLabelledMatrix` and then loaded into k-Plan. The loaded image must be selected as the primary planning image. Nearest neighbour interpolation is used to re-sample the image to the simulation resolution, so the labelled matrix should have sufficient resolution to avoid stair-casing artefacts (typically > 6 PPW).
+
+The example below shows how to create a labelled matrix with a skull slab assigned the properties of cortical bone, matching the [modelling intercomparison benchmark 3](https://doi.org/10.1121/10.0013426).
+
+```matlab
+% define image structure at 6 PPW
+dx = 0.5e-3;
+imageSize = [241, 300, 300];
+
+skull_thickness = round(6.5e-3/dx);
+skull_position = 1 + round(30e-3/dx);
+
+imageLabelledMatrix = zeros(imageSize);
+imageLabelledMatrix(skull_position:skull_position + skull_thickness - 1, :, :) = 1;
+
+% define material properties of water and cortical bone
+imageLookupTable.sound_speed_compression = ...
+    [0       1;
+     1500    2800];
+imageLookupTable.density = ...
+    [0       1;
+     1000    1850];
+imageLookupTable.alpha_coeff_compression = ...
+    [0       1;
+     0       8];
+imageLookupTable.alpha_power_compression = ...
+    [0       1;
+     1       1];
+imageLookupTable.specific_heat = ...
+    [0       1;
+     4200    1300];
+imageLookupTable.thermal_conductivity = ...
+    [0       1;
+     0.6     0.32];
+
+imageLookupTable.sound_speed_compression_ref = 1500;
+
+% define image attributes
+imageSpacing = [dx, dx, dx];
+imageLabel = 'Modelling Intercomparison - Benchmark 3';
+
+% save as image
+kplan.saveMaterialLabelledMatrix(imageLabel, imageLabelledMatrix, imageLookupTable, imageSpacing, imageLabel)
+```
