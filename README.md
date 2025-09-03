@@ -40,12 +40,20 @@ For further details type:
 help kplan.loadResults
 ```
 
+## Load segmentation
+
+The segmentation of the primary planning image can be loaded using:
+
+```matlab
+segmentation = kplan.loadSegmentation(subjectID, planID)
+```
+
 ## Load element amplitudes and phases
 
 The driving amplitude and phase for the transducer used for the forward planning simulation can be loaded using:
 
 ```matlab
-[amp, phase] = kplan.loadElementAmpPhase(subjectID, planID, sonicationNumber)
+[amp, phase] = kplan.loadElementAmpPhase(subjectID, planID, sonicationNum)
 ```
 
 ## Sum sonications
